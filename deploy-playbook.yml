@@ -1,0 +1,19 @@
+---
+- name: Deploy notepad-app container
+  hosts: localhost
+  become: true
+
+  tasks:
+    - name: Stop and remove existing container
+      community.docker.docker_container:
+        name: notepad
+        state: absent
+
+    - name: Run new container
+      community.docker.docker_container:
+        name: notepad
+        image: tamarmey/notepad-app:v1
+        state: started
+        restart_policy: always
+        published_ports:
+          - "8080:8080"
