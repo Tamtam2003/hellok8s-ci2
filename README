@@ -1,0 +1,83 @@
+# hellok8s-ci2  
+Full CI/CD pipeline deploying a Flask application to a Kubernetes (Minikube) cluster using Jenkins, Docker, Terraform (infra), and Ansible.
+
+## 📌 Project Overview
+This project demonstrates a complete DevOps workflow for deploying a containerized Flask microservice to Kubernetes through an automated CI/CD pipeline.  
+The pipeline builds a Docker image, pushes it to DockerHub, and triggers an Ansible deployment that applies Kubernetes manifests to a Minikube cluster.  
+This is a practical, end-to-end example of real DevOps automation.
+
+## 🚀 Technologies Used
+- Flask (Python)
+- Docker
+- Kubernetes (Minikube)
+- Jenkins
+- Ansible
+- Git & GitHub
+- Terraform (in related infra projects)
+
+## 📂 Project Structure
+.
+├── app.py  
+├── Dockerfile  
+├── Jenkinsfile  
+├── configmap.yaml  
+├── deployment.yaml  
+├── service.yaml  
+├── notepad-service.yaml  
+├── deploy-playbook.yml  
+├── inventory  
+├── requirements.txt  
+
+## 🔧 CI/CD Workflow
+
+### 1. Build Stage  
+Jenkins builds a Docker image from the Dockerfile.
+
+### 2. Push Stage  
+The pipeline pushes the image to DockerHub under the `tamarmey` repository.
+
+### 3. Deploy Stage  
+Jenkins triggers an Ansible playbook that:  
+- Connects to Minikube via inventory  
+- Applies Deployment, Service, and ConfigMap  
+- Updates the Deployment with the latest image  
+- Verifies rollout completion  
+
+## ☸️ Kubernetes Components
+
+### Deployment (deployment.yaml)
+- Manages pod replicas  
+- Pulls the latest DockerHub image  
+- Includes readiness & liveness probes  
+
+### Service (service.yaml)
+- Exposes the application internally or via NodePort  
+
+### ConfigMap (configmap.yaml)
+- Provides application environment variables  
+
+## ▶️ Manual Run (Optional)
+
+### Start Minikube:
+minikube start
+
+### Build image:
+docker build -t hellok8s-ci2 .
+
+### Apply manifests:
+kubectl apply -f deployment.yaml  
+kubectl apply -f service.yaml  
+kubectl apply -f configmap.yaml  
+
+### Check pods:
+kubectl get pods
+
+## 🎯 Project Goals
+- Demonstrate practical CI/CD automation  
+- Integrate Jenkins, Docker, Kubernetes, and Ansible  
+- Implement a complete deployment workflow: code → container → cluster  
+- Strengthen cloud-native DevOps skills  
+
+## 📬 Author
+Tamar Meydani  
+DevOps Engineer
